@@ -36,7 +36,7 @@
     class="bg-white max-w-2xl my-16 mx-auto p-6 rounded-xl flex flex-col gap-4"
     @submit.prevent="handleSubmit"
   >
-    <h1 class="text-2xl font-medium text-grey-900">Contato</h1>
+    <h1 class="text-2xl font-bold text-grey-900">Contato</h1>
 
     <div class="flex flex-col md:flex-row justify-between gap-4">
       <div class="flex flex-col gap-1.5 w-full">
@@ -120,7 +120,7 @@
         name="termos"
         id="termos"
         v-model="dataForm.acceptedTerms"
-        class="w-5 h-5 accent-green-600 cursor-pointer"
+        class="w-4 h-4 accent-green-600 cursor-pointer"
       />
       <label for="termos" class="text-grey-900 cursor-pointer">Eu aceito os termos.</label>
     </div>
