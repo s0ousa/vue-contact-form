@@ -21,9 +21,35 @@ export const useContactFormStore = defineStore('contactForm', () => {
     acceptedTerms: '',
   })
 
+  const sucess = ref(false)
+
+  const submitForm = () => {
+    let sucessTimeout = null
+
+    if (validateDataForm()) {
+      sucess.value = true
+    }
+
+    if (sucess.value) {
+      clearErrors()
+      clearDataForm()
+
+      sucessTimeout = setTimeout(() => {
+        sucess.value = false
+        sucessTimeout = null // Limpa a referência
+      }, 3000)
+    }
+  }
+
   const clearErrors = () => {
-    for (const campo in dataForm) {
+    for (const campo in errors) {
       errors[campo] = ''
+    }
+  }
+
+  const clearDataForm = () => {
+    for (const campo in dataForm) {
+      dataForm[campo] = ''
     }
   }
 
@@ -44,7 +70,7 @@ export const useContactFormStore = defineStore('contactForm', () => {
       }
     }
 
-    if (dataForm.email && isValidEmail(!dataForm.email)) {
+    if (dataForm.email && !isValidEmail(dataForm.email)) {
       errors.email = 'Email inválido'
       isValid = false
     }
@@ -61,6 +87,7 @@ export const useContactFormStore = defineStore('contactForm', () => {
   return {
     dataForm,
     errors,
-    validateDataForm,
+    submitForm,
+    sucess,
   }
 })

@@ -1,12 +1,14 @@
 <script setup>
   import { useContactFormStore } from '@/stores/contactForm'
+  import ToastSucess from './ToastSucess.vue'
 
   const store = useContactFormStore()
 </script>
 <template>
+  <ToastSucess v-if="store.sucess" />
   <form
     class="bg-white max-w-2xl my-16 mx-auto p-6 rounded-xl flex flex-col gap-4"
-    @submit.prevent="store.validateDataForm"
+    @submit.prevent="store.submitForm"
   >
     <h1 class="text-2xl font-bold text-grey-900">Contato</h1>
 
@@ -100,7 +102,7 @@
         class="h-14 resize-none p-2 px-3 border border-grey-500 rounded-md focus:border-2 focus:border-green-600 focus:outline-none transition-colors"
         :class="{ 'border-red': store.errors.message.trim() }"
       />
-      <span v-if="store.errors.email" class="text-red text-sm">
+      <span v-if="store.errors.message" class="text-red text-sm">
         {{ store.errors.email }}
       </span>
     </div>
