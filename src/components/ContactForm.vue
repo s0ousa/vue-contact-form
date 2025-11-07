@@ -1,178 +1,135 @@
 <script setup>
-import { reactive } from 'vue'
+  import { reactive, ref } from 'vue'
 
-const dataForm = reactive({
-  firstName: '',
-  lastName: '',
-  email: '',
-  subject: '',
-  message: '',
-  acceptedTerms: false,
-})
+  const dadosValidos = ref(false)
 
-const handleSubmit = () => {
-  const dados = { ...dataForm }
-  console.log(dados)
-}
+  const dataForm = reactive({
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    message: '',
+    acceptedTerms: false,
+  })
+
+  const handleSubmit = () => {
+    const dados = { ...dataForm }
+
+    //   console.log(dados)
+    //   validateDataForm()
+    //   console.log(validateDataForm())
+    dadosValidos.value = validateDataForm()
+  }
+
+  const validateDataForm = () => {
+    const campos = ['firstName', 'lastName', 'email', 'subject', 'message', 'acceptedTerms']
+
+    campos.forEach((campo) => {
+      console.log(dataForm[campo])
+      if (dataForm[campo] == 0) return false
+    })
+    return true
+  }
 </script>
-
 <template>
-  <form class="container-form">
-    <h1>Contato</h1>
-    <div class="container-name">
-      <div class="input-label">
-        <label for="firstName">Nome</label>
-        <input type="text" id="firstName" v-model="dataForm.firstName" />
+  <form
+    class="bg-white max-w-2xl my-16 mx-auto p-6 rounded-xl flex flex-col gap-4"
+    @submit.prevent="handleSubmit"
+  >
+    <h1 class="text-2xl font-medium text-grey-900">Contato</h1>
+
+    <div class="flex justify-between gap-4">
+      <div class="flex flex-col gap-1.5 w-full">
+        <label for="firstName" class="text-grey-900">Nome</label>
+        <input
+          type="text"
+          id="firstName"
+          v-model="dataForm.firstName"
+          class="border border-grey-500 rounded-md h-10 px-3 focus:border-2 focus:border-green-600 focus:outline-none transition-colors"
+        />
       </div>
-      <div class="input-label">
-        <label for="lastName">Sobrenome</label>
-        <input type="text" id="lastName" v-model="dataForm.lastName" />
+
+      <div class="flex flex-col gap-1.5 w-full">
+        <label for="lastName" class="text-grey-900">Sobrenome</label>
+        <input
+          type="text"
+          id="lastName"
+          v-model="dataForm.lastName"
+          class="border border-grey-500 rounded-md h-10 px-3 focus:border-2 focus:border-green-600 focus:outline-none transition-colors"
+        />
       </div>
     </div>
-    <div class="container-email">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" v-model="dataForm.email" />
+
+    <div class="flex flex-col gap-1.5">
+      <label for="email" class="text-grey-900">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        v-model="dataForm.email"
+        class="border border-grey-500 rounded-md h-10 px-3 focus:border-2 focus:border-green-600 focus:outline-none transition-colors"
+      />
     </div>
-    <label for="assunto">Motivo do contato</label>
-    <div class="container-assunto">
-      <label for="geral" class="radio-input">
-        <input type="radio" name="assunto" id="geral" value="geral" v-model="dataForm.subject" />
-        <span>Assuntos gerais</span>
+
+    <label for="assunto" class="text-grey-900">Motivo do contato</label>
+    <div class="flex justify-between gap-4 w-full">
+      <label
+        for="geral"
+        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200"
+      >
+        <input
+          type="radio"
+          name="assunto"
+          id="geral"
+          value="geral"
+          v-model="dataForm.subject"
+          class="accent-green-600"
+        />
+        <span class="text-grey-900">Assuntos gerais</span>
       </label>
-      <label for="suporte" class="radio-input">
+
+      <label
+        for="suporte"
+        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200"
+      >
         <input
           type="radio"
           name="assunto"
           id="suporte"
           value="suporte"
           v-model="dataForm.subject"
+          class="accent-green-600"
         />
-        <span>Pedido de suporte</span>
+        <span class="text-grey-900">Pedido de suporte</span>
       </label>
     </div>
-    <div class="container-msg">
-      <label for="mensagem">Mensagem</label>
-      <textarea name="mensagem" id="mensagem" v-model="dataForm.message" />
+
+    <div class="flex flex-col gap-1.5">
+      <label for="mensagem" class="text-grey-900">Mensagem</label>
+      <textarea
+        name="mensagem"
+        id="mensagem"
+        v-model="dataForm.message"
+        class="h-14 resize-none p-2 px-3 border border-grey-500 rounded-md focus:border-2 focus:border-green-600 focus:outline-none"
+      />
     </div>
-    <div class="container-termos">
-      <input type="checkbox" name="termos" id="termos" v-model="dataForm.acceptedTerms" />
-      <label for="termos">Eu aceito os termos.</label>
+
+    <div class="flex items-center gap-3">
+      <input
+        type="checkbox"
+        name="termos"
+        id="termos"
+        v-model="dataForm.acceptedTerms"
+        class="w-4 h-4 accent-green-600 cursor-pointer"
+      />
+      <label for="termos" class="text-grey-900 cursor-pointer">Eu aceito os termos.</label>
     </div>
-    <button type="button" @click="handleSubmit">Enviar</button>
+
+    <button
+      type="submit"
+      class="bg-green-600 w-full py-3 text-white border-none rounded-md font-bold cursor-pointer hover:brightness-75"
+    >
+      Enviar
+    </button>
   </form>
 </template>
-
-<style scoped>
-.container-form {
-  background-color: var(--white);
-  max-width: 640px;
-  /* min-width: 375px; */
-  margin: 64px auto;
-  padding: 24px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.container-name {
-  display: flex;
-  justify-content: space-between;
-}
-
-.input-label {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 48%;
-}
-
-input {
-  border: 1px solid var(--grey-500);
-  border-radius: 6px;
-  height: 38px;
-  padding: 4px 12px;
-}
-
-input:focus {
-  border: 2px solid var(--green-600);
-  outline: none;
-}
-
-.container-email {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.container-assunto {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  /* background: pink; */
-}
-
-.radio-input {
-  padding: 2px 12px;
-  width: 48%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--grey-500);
-  border-radius: 6px;
-}
-.radio-input:hover {
-  cursor: pointer;
-}
-
-.radio-input input[type='radio'] {
-  padding: 100%;
-  background-color: pink;
-}
-
-.container-msg {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.container-msg textarea {
-  height: 56px;
-  resize: none;
-  padding: 8px 12px;
-  border: 1px solid var(--grey-500);
-  border-radius: 6px;
-}
-
-textarea:focus {
-  border: 2px solid var(--green-600);
-  outline: none;
-}
-
-.container-termos {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-input[type='radio']:checked,
-input[type='checkbox']:checked {
-  accent-color: var(--green-600);
-}
-
-button {
-  background: var(--green-600);
-  width: 100%;
-  padding: 12px 0;
-  color: var(--white);
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
-button:hover {
-  cursor: pointer;
-  filter: brightness(0.9);
-}
-</style>
