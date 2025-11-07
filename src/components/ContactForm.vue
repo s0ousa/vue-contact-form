@@ -38,7 +38,7 @@
   >
     <h1 class="text-2xl font-medium text-grey-900">Contato</h1>
 
-    <div class="flex justify-between gap-4">
+    <div class="flex flex-col md:flex-row justify-between gap-4">
       <div class="flex flex-col gap-1.5 w-full">
         <label for="firstName" class="text-grey-900">Nome</label>
         <input
@@ -72,10 +72,10 @@
     </div>
 
     <label for="assunto" class="text-grey-900">Motivo do contato</label>
-    <div class="flex justify-between gap-4 w-full">
+    <div class="flex flex-col md:flex-row justify-between gap-4 w-full">
       <label
         for="geral"
-        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200"
+        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200 transition-colors"
       >
         <input
           type="radio"
@@ -90,7 +90,7 @@
 
       <label
         for="suporte"
-        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200"
+        class="py-2 px-3 w-full flex items-center gap-2 border border-grey-500 rounded-md cursor-pointer hover:bg-green-200 transition-colors"
       >
         <input
           type="radio"
@@ -110,7 +110,7 @@
         name="mensagem"
         id="mensagem"
         v-model="dataForm.message"
-        class="h-14 resize-none p-2 px-3 border border-grey-500 rounded-md focus:border-2 focus:border-green-600 focus:outline-none"
+        class="h-14 resize-none p-2 px-3 border border-grey-500 rounded-md focus:border-2 focus:border-green-600 focus:outline-none transition-colors"
       />
     </div>
 
@@ -120,14 +120,14 @@
         name="termos"
         id="termos"
         v-model="dataForm.acceptedTerms"
-        class="w-4 h-4 accent-green-600 cursor-pointer"
+        class="w-5 h-5 accent-green-600 cursor-pointer"
       />
       <label for="termos" class="text-grey-900 cursor-pointer">Eu aceito os termos.</label>
     </div>
 
     <button
       type="submit"
-      class="bg-green-600 w-full py-3 text-white border-none rounded-md font-bold cursor-pointer hover:brightness-75"
+      class="bg-green-600 w-full py-3 text-white border-none rounded-md font-bold cursor-pointer hover:brightness-90 transition-all"
     >
       Enviar
     </button>
